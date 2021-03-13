@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "https://learn-cards.herokuapp.com",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
@@ -15,6 +15,7 @@
     "js-beautify": "^1.13.5",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
+    "netlify-cli": "^3.10.11",
     "pretty": "^2.0.0",
     "prismjs": "^1.23.0",
     "react": "^17.0.1",
