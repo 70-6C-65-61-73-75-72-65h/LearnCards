@@ -4,7 +4,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 
 // import Home from "./components/Home/Home";
-import Cards from "./components/Card/List/CardList";
+import Cards from "./components/Card/List/CardList/CardList";
+import CardsLearn from "./components/Card/List/CardLearnList/CardLearnList";
+// import CardsLearn from "./components/Card/List/CardLearnList/CardLearnList";
 // import UploadMusic from "./components/Music/Upload/UploadMusic";
 import Form from "./components/Card/Form/Form";
 import Navbar from "./components/Navbar/Navbar";
@@ -18,9 +20,16 @@ const App = ({ Icon, theme }) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="lg">
-          <Navbar icon={Icon} />
+          {/* to catch cardId if card update ( to de-select muitab-indicator ) */}
+          <Route
+            exact
+            path={["/card/update/:cardId", "/*"]}
+            render={() => <Navbar icon={Icon} />}
+          />
           <Switch>
             <Route path={["/", "/cards"]} exact component={Cards} />
+            <Route path={"/learn"} exact component={CardsLearn} />
+
             <Route
               path={["/card/create", "/card/update/:cardId"]}
               exact

@@ -5,11 +5,12 @@ import {
   DELETE,
   UPDATE,
   CARD_ANSWER_INCORRECT, //  set currentCardAnswerCorrect (if incorrect)
-  CARD_ANSWER_CORRECT, // delete card from local card list (if correct)
+  // CARD_ANSWER_CORRECT, // delete card from local card list (if correct)
 } from "../constants/actionTypes";
 
 const initialState = {
   cards: [],
+  // currentAnswerCorrect
   // if error => will be settled to false and it will change ui depends on it
   // currentCardAnswerCorrect: true
 };
@@ -34,7 +35,7 @@ const cardReducer = (state = initialState, action) => {
           card._id === action.payload._id ? action.payload : card
         ),
       };
-    case CARD_ANSWER_CORRECT:
+    // case CARD_ANSWER_CORRECT:
     case DELETE:
       // delete
       return {

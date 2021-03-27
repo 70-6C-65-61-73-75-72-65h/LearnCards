@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+    .wrapper{
+   /* height: 800px;  */
+     /* width: 400px;  */
+    }
+    .card {
+        height: 600px; 
+         /* height: 800px; 
+     width: 400px; */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: space-between;
+        border-radius: 15px; 
+        background-color: blue;
+        color: yellow;
+    }
+     .c1, .c2, .c3, .c4{
+         border: 1px solid red;
+     }
+    .c2{
+        /* align-self: stretch; */
+        flex-grow:1;
+    }
+    p{
+        text-align: center;
+    }
+    </style>
+  </head>
+  <body>    
+   <div class='wrapper'>
+    <div class="card">
+        <div class="c1">
+<p>card1</p>
+        </div>  
+        <div class="c2">
+<p>card2</p>
+        </div>  
+        <div class="c3">
+<p>card3</p>
+        </div>  
+        <div class="c4">
+<p>card4</p>
+        </div>  
+    </div>  
+   </div>
+  </body>
+</html>

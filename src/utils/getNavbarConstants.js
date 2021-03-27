@@ -19,7 +19,7 @@ export const signout = ({ iconProps, ...props }) => ({
 });
 export const learn = ({ iconProps }) => ({
   text: "Учить",
-  redirectLink: "/card/create",
+  redirectLink: "/learn",
   icon: <MemoryIcon {...iconProps} />,
 });
 export const create = ({ iconProps }) => ({

@@ -13,6 +13,32 @@ import {
   pink,
 } from "@material-ui/core/colors";
 
+const CustomOverrides = {
+  MuiFormControl: {
+    root: {
+      borderRadius: "8px !important",
+    },
+  },
+  MuiInputBase: {
+    input: { borderRadius: "8px !important" },
+    multiline: { borderRadius: "8px !important" },
+  },
+
+  MuiTextField: {
+    root: {
+      margin: "8px",
+      // padding: "0px",
+    },
+  },
+  PrivateNotchedOutline: {
+    root: {
+      border: "none !important",
+      // margin: "0px !important",
+      // padding: "0px !important",
+    },
+  },
+};
+
 const dark = createMuiTheme({
   typography: {
     fontFamily: ['"Montserrat"', "Open Sans"].join(","),
@@ -36,6 +62,12 @@ const dark = createMuiTheme({
       main: pink[200],
       active: pink[100],
     },
+    error: {
+      main: "rgb(207, 0, 15)",
+    },
+  },
+  overrides: {
+    ...CustomOverrides,
   },
 });
 const light = createMuiTheme({
@@ -63,6 +95,12 @@ const light = createMuiTheme({
       main: red[500],
       active: red[800],
     },
+    error: {
+      main: "rgb(207, 0, 15)",
+    },
+  },
+  overrides: {
+    ...CustomOverrides,
   },
 });
 const AppThemes = { dark, light };

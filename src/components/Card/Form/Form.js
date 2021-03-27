@@ -24,13 +24,20 @@ import {
 } from "../../../actions/cards";
 import useStyles from "./styles";
 
-import Code from "./SubForm/Code/Code";
-import Picture from "./SubForm/Picture/Picture";
-import Theory from "./SubForm/Theory/Theory";
+// import Code from "./SubForm/Code/Code";
+// import Picture from "./SubForm/Picture/Picture";
+// import Theory from "./SubForm/Theory/Theory";
+
+import { subSpeciesRelation } from "../../../utils/getTypeRelativeComponents";
+import { availableTypes } from "../../../utils/availableExtraFieldTypes";
+import { ExtraState } from "../../../utils/getTypeRelativeExtraState";
+
+import { streamCardPicSrc } from "../../../api";
 import {
-  types as availableTypes,
-  subSpeciesRelation,
-} from "../../../utils/GetTypeRelativeComponents";
+  CUFSCode,
+  CUFSPicture,
+  CUFSTheory,
+} from "../ExtraFieldSets/CreateUpdate/CreateUpdate";
 
 const initialState = {
   topic: "",
@@ -38,7 +45,8 @@ const initialState = {
   urlSrc: "",
 };
 
-const relativeComponents = [Code, Picture, Theory];
+// setCardData={setCardData} cardData={cardData} extraState={ExtraState({availableType: type})}
+const relativeComponents = [CUFSCode, CUFSPicture, CUFSTheory];
 
 const getRelativeComponent = subSpeciesRelation(relativeComponents);
 
@@ -76,7 +84,11 @@ const Form = () => {
     if (cardId && !card) {
       dispatch(fetchSingleCard(cardId));
     } else if (card) {
-      setCardData(card);
+      let picturePreview = void 0;
+      if (card._type === "picture") {
+        picturePreview = streamCardPicSrc(card.filename);
+      }
+      setCardData({ ...card, picturePreview });
     }
   }, [card, cardId, dispatch]);
 
@@ -111,7 +123,12 @@ const Form = () => {
     }
     // even if its a {} not only '' =>  set firstly to ''
     setCardData((prev) =>
-      Object.keys(prev).reduce((acum, key) => ((acum[key] = ""), acum), {})
+      Object.keys(prev).reduce(
+        (acum, key) => (
+          key === "question" ? (acum[key] = [""]) : (acum[key] = ""), acum
+        ),
+        {}
+      )
     );
     setType("");
   };
@@ -130,6 +147,7 @@ const Form = () => {
   const getJsonData = () => ({
     ...cardData,
     ownerName: user.result.name,
+    picture: cardData.picture instanceof File ? cardData.picture : void 0,
     // never send picturePreview to backend
     picturePreview: void 0,
   });
@@ -149,7 +167,9 @@ const Form = () => {
 
   // choosing to send multipart/form-data or json (relatively to _type)
   const chooseSendData = () =>
-    cardData._type === "picture" ? getFormData() : getJsonData();
+    cardData._type === "picture" && cardData.picture instanceof File
+      ? getFormData()
+      : getJsonData();
 
   const update = () => {
     dispatch(updateCard(cardId, chooseSendData(), history));
@@ -203,10 +223,12 @@ const Form = () => {
           >
             <Typography variant="h6" className={classes.heading}>
               {cardId ? (
-                <p>
-                  Изменение карточки по теме{" "}
-                  <i className={classes.cardThemeHeading}>{card?.theme}</i>
-                </p>
+                <>
+                  <p>Изменение карточки по теме: &nbsp;</p>
+                  <i className={classes.cardThemeHeading}>
+                    {card?.theme} &nbsp;
+                  </i>
+                </>
               ) : (
                 "Создание карточки"
               )}
@@ -254,11 +276,26 @@ const Form = () => {
                   </Typography>
                 ) : null}
               </Grid>
-              <Grid item xs={12} sm={12}>
+
+              <Grid
+                xs={12}
+                sm={12}
+                item
+                container
+                // fix padding for theory fieldSet // and reduce width of code fieldSet with left offset to make it center
+                style={{
+                  paddingRight: "16px",
+                  position: "relative",
+                  left:
+                    type === "code" || cardData._type === "code" ? `8px` : 0,
+                }}
+              >
                 {getRelativeComponent(type || cardData._type, {
                   setCardData,
                   cardData,
-                  handleSubmit,
+                  extraState: ExtraState({
+                    availableType: type || cardData._type,
+                  }),
                 })}
               </Grid>
             </Grid>

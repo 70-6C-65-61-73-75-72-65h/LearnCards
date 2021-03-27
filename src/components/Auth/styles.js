@@ -10,10 +10,10 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   root: {
-    "& .MuiTextField-root": {
-      // TODO change
-      margin: theme.spacing(1),
-    },
+    // "& .MuiTextField-root": {
+    //   // TODO change
+    //   margin: theme.spacing(1),
+    // },
   },
   avatar: {
     margin: theme.spacing(1),

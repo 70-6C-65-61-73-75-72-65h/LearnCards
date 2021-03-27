@@ -34,7 +34,8 @@ API.interceptors.request.use((req) => {
 export const signIn = (formData) => API.post("/user/signin", formData);
 export const signUp = (formData) => API.post("/user/signup", formData);
 
-export const fetchTodayCards = () => API.get("/cards");
+export const fetchAllCards = () => API.get("/cards");
+export const fetchTodayCards = () => API.get("/cards/learn");
 export const fetchSingleCard = (id) => API.get(`/cards/${id}`);
 
 export const createCard = (newCard) => API.post("/cards", newCard);
@@ -50,3 +51,5 @@ export const updateCard = (id, updatedCard) =>
   API.patch(`/cards/update/${id}`, updatedCard);
 
 export const deleteCard = (id) => API.delete(`/cards/delete/${id}`);
+
+// fetchTodayCards checkCard

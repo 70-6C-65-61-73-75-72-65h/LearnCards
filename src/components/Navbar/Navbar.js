@@ -17,7 +17,7 @@ import {
   Paper,
 } from "@material-ui/core";
 
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import decode from "jwt-decode";
 
@@ -93,11 +93,18 @@ const NavigationTextItem = ({ item, ...props }) => {
 // authItems.length === 2 (0 - signin, 1- siginout)
 const NavbarContent = ({ user, noAuthItems, authItems }) => {
   const classes = useStyles();
-
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const { cardId } = useParams();
+  useEffect(() => {
+    if (cardId && value !== false) {
+      setValue(false);
+    }
+  }, [cardId, value]);
+
   if (
     !Array.isArray(noAuthItems) ||
     !Array.isArray(authItems) ||
@@ -110,12 +117,11 @@ const NavbarContent = ({ user, noAuthItems, authItems }) => {
 
   return (
     <>
-      {/* <Paper className={classes.tabsRootWrapper}> */}
       <Tabs
         value={value}
         onChange={handleChange}
-        indicatorColor="secondary"
-        textColor="secondary"
+        // indicatorColor="secondary"
+        // textColor="secondary"
         // centered
         className={classes.tabsRoot}
       >
@@ -123,7 +129,6 @@ const NavbarContent = ({ user, noAuthItems, authItems }) => {
           <NavigationTextItem key={nti.text} item={nti} {...a11yProps(index)} />
         ))}
       </Tabs>
-      {/* </Paper> */}
 
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
@@ -136,7 +141,6 @@ const NavbarContent = ({ user, noAuthItems, authItems }) => {
             </div>
             <Button
               variant="contained"
-              // className={classes.logout}
               color="secondary"
               onClick={authItems[1].operation}
             >
@@ -160,19 +164,17 @@ const NavbarContent = ({ user, noAuthItems, authItems }) => {
 
 const AdaptiveNavbarContent = withMediaQuery(NavbarContent);
 
-const Navbar = ({ icon }) => {
+const Navbar = ({ icon, ...params }) => {
   const smIconSize = "Large";
   const smIconColor = "Secondary";
   const smIcon = `${smIconSize}$${smIconColor}`;
   // const theme = useTheme();
-
   const classes = useStyles();
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
-
   const logout = useCallback(() => {
     dispatch({ type: actionType.LOGOUT });
     history.push("/auth");

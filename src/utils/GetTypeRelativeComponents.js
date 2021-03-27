@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const types = ["code", "picture", "theory"];
+import { availableTypes as types } from "./availableExtraFieldTypes";
 
 export const subSpeciesRelation = (
   relativeComponents,
@@ -20,7 +20,7 @@ export const subSpeciesRelation = (
   };
 };
 
-subSpeciesRelation.PropTypes = {
+subSpeciesRelation.propTypes = {
   relativeComponents: PropTypes.arrayOf(PropTypes.func),
   availableTypes: PropTypes.arrayOf(PropTypes.string),
 };

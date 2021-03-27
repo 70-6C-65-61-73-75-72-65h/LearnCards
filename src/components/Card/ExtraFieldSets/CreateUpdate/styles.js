@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { normalTextArea, scrollStyleMixin } from "../../../../../mixins/styles";
-
+import { normalTextArea, scrollStyleMixin } from "../../../../mixins/styles";
 export default makeStyles((theme) => ({
+  // for theory create update
   theoryWrapper: {
     position: "relative",
     left: -theme.spacing(1),

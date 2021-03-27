@@ -1,23 +1,20 @@
 import { fade, makeStyles } from "@material-ui/core/styles";
+import {
+  regularTextField,
+  labelWriteField,
+  commonFieldsOverflow,
+} from "../../../mixins/styles";
 
 export default makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      padding: "0px",
-      borderRadius: theme.spacing(1),
-    },
-    '& *[class*="PrivateNotchedOutline-root-"]': {
-      borderWidth: "0px",
-    },
-    "& .MuiInputLabel-formControl": { color: theme.palette.info.dark },
-    "& .MuiInputLabel-shrink": {
-      top: -theme.spacing(1),
-      color: theme.palette.primary.contrastText,
-    },
-    '& *[class*="PrivateNotchedOutline-legendLabelled-"]': {
-      display: "none",
-    },
+    // "& .MuiFormControl-root ": {
+    //   borderRadius: theme.spacing(1),
+    // },
+    // "& .MuiTextField-root": {
+    //   margin: theme.spacing(1),
+    //   padding: "0px",
+    // },
+    ...labelWriteField(theme),
   },
   paper: {
     padding: theme.spacing(2),
@@ -29,6 +26,7 @@ export default makeStyles((theme) => ({
     justifyContent: "center",
   },
   buttonSubmit: {
+    marginTop: theme.spacing(1),
     marginBottom: 10,
     color: theme.palette.success.contrastText,
     backgroundColor: fade(theme.palette.success.main, 0.7),
@@ -44,21 +42,21 @@ export default makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
   extraFields: { textAlign: "center" },
   cardThemeHeading: {
+    // display: "flex",
     color: theme.palette.info.main,
+    ...commonFieldsOverflow(theme),
   },
   heading: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "center",
+
     color: theme.palette.primary.contrastText,
   },
   regularField: {
-    backgroundColor:
-      theme.palette.type === "dark"
-        ? theme.palette.primary.dark
-        : theme.palette.primary.light,
-    color: theme.palette.primary.contrastText,
+    ...regularTextField(theme),
   },
 }));

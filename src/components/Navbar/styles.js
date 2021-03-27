@@ -1,5 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 
+// 'span[class=*"PrivateTabIndicator-root"]': {
+//       display: "none",
+//       color: "red !important",
+//       backgroundColor: "red !important",
+//  },
+
 export default makeStyles((theme) => ({
   // for drawer
   list: {
@@ -9,6 +15,9 @@ export default makeStyles((theme) => ({
     flexGrow: 1,
     display: "flex",
     margin: "20px",
+    // "& .MuiTabs-indicator": {
+    //   width: "0px !important",
+    // },
   },
   smToolbar: {
     display: "flex",
@@ -56,7 +65,6 @@ export default makeStyles((theme) => ({
     margin: theme.spacing(0, 1),
     alignItems: "center",
     overflow: "hidden",
-    textOverflow: "ellipsis !important",
     whiteSpace: "pre-wrap",
   },
   toolbar: {
